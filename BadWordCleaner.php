@@ -1,18 +1,20 @@
 <?php
 
 class BadWordCleaner {
+  
+  //evey where find this -> is filtering
+  private $filterList1 = ["xx"];
+  //every word is equals this -> is filtering
+  private $filterList2 = ["bad"];
+  
   public static function isFilterText($text)
     {
         $text = strtolower($text);
-        $filterList1 = ["xx"];
-
-        foreach ($filterList1 as $item) {
+        foreach ($this->filterList1 as $item) {
             if (strpos($text, $item) !== false) {
                 return true;
             }
         }
-
-        $filterList2 = ["bad"];
 
         // change arabic characters to persion
         $text = str_replace("  ", "", $text);
@@ -36,23 +38,23 @@ class BadWordCleaner {
                     $lastChar = $char;
                 }
             }
-            foreach ($filterList1 as $item) {
+            foreach ($this->filterList1 as $item) {
                 if (strpos($clearValue, $item) !== false) {
                     return true;
                 }
             }
             $finalText .= $clearValue;
-            if (in_array($clearValue, $filterList2)) {
+            if (in_array($clearValue, $this->filterList2)) {
                 return true;
             }
         }
 
-        foreach ($filterList1 as $item) {
+        foreach ($this->filterList1 as $item) {
             if (strpos($finalText, $item) !== false) {
                 return true;
             }
         }
-        if (in_array($finalText, $filterList2)) {
+        if (in_array($finalText, $this->filterList2)) {
             return true;
         }
         return false;
