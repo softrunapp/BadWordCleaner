@@ -1,0 +1,2 @@
+# BadCleaner
+filter bad words
